@@ -6,6 +6,7 @@
    - Serwer pełni rolę hosta.
   
 Napisana jest prosta biblioteka socket_io.py do prostszej obsługi połączeń.
+
 Pliki:
 * klient.py - klient
 * serwer.py - serwer
@@ -14,13 +15,13 @@ Pliki:
 * client_functions.py - zawiera funkcje realizowane po stronie klienta
 * serwer_functions.py - zawiera funkcje realizowane po stronie klienta
 
-
-*> Nie zmieniajcie pliku socket_io.py
-*> Dbajcie o porządek
-*> Zanim zaczniecie pracę, przeczytajcie kod i komentarze
-*> Polecam uruchamiać z lini poleceń
-*> Uruchamiamy najpierw serwer potem klient
-*> Gdy coś się zwiesi to Ctrl+Break(Windows)
+Podpowiedzi:
+* Nie zmieniajcie pliku socket_io.py
+* Dbajcie o porządek
+* Zanim zaczniecie pracę, przeczytajcie kod i komentarze
+* Polecam uruchamiać z lini poleceń
+* Uruchamiamy najpierw serwer potem klient
+* Gdy coś się zwiesi to Ctrl+Break(Windows)
 
 Aby wszystko działało jak należy:
 1. Utworzyć funkcje obsługującą okreslone zdarzenie w GUI w pliku client_functions.py
