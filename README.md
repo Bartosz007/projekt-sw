@@ -15,9 +15,12 @@ Pliki:
 * serwer_functions.py - zawiera funkcje realizowane po stronie klienta
 
 
-> Nie zmieniajcie pliku socket_io.py
-> Dbajcie o porządek
-> Zanim zaczniecie pracę, przecyztajcie kod i komentarze
+*> Nie zmieniajcie pliku socket_io.py
+*> Dbajcie o porządek
+*> Zanim zaczniecie pracę, przeczytajcie kod i komentarze
+*> Polecam uruchamiać z lini poleceń
+*> Uruchamiamy najpierw serwer potem klient
+*> Gdy coś się zwiesi to Ctrl+Break(Windows)
 
 Aby wszystko działało jak należy:
 1. Utworzyć funkcje obsługującą okreslone zdarzenie w GUI w pliku client_functions.py
