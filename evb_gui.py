@@ -1,6 +1,23 @@
 import tkinter as tk
-
+import time
 import functions.client_functions as cf
+
+time_on_press = 0
+hold_time = 0.5
+
+
+def on_press(i):
+    global time_on_press
+    time_on_press = time.time()
+
+
+def on_release(server_connection, lcd_label, i):
+    global time_on_press
+    if time.time() - time_on_press > hold_time:
+        # print("button {} was held more than 5 seconds and needs description of function".format(i))
+        cf.com4(server_connection, lcd_label, i)
+    else:
+        print("button {} was released and needs function".format(i))
 
 
 def load_gui(server_connection):
@@ -55,11 +72,13 @@ def load_gui(server_connection):
     buttons_opis_label.pack()
 
     for i in range(8):
-        fr = tk.Frame(buttons_frame, width=(int)(800 / 8), heigh="50")
+        fr = tk.Frame(buttons_frame, width=int(800 / 8), heigh="50")
         fr.pack_propagate(0)
         fr.pack(side=tk.LEFT)
 
         bt = tk.Button(fr, text="Button" + str(i), width=10, heigh=10)
+        bt.bind("<ButtonPress>", lambda event, i=i: on_press(i))
+        bt.bind("<ButtonRelease>", lambda event, i=i: on_release(server_connection, lcd_label, i))
         bt.pack()
 
     # diody L0-L7
@@ -71,7 +90,7 @@ def load_gui(server_connection):
     diods_opis_label.pack()
 
     for i in range(8):
-        fr = tk.Frame(diods_frame, width=(int)(800 / 8), heigh="50")
+        fr = tk.Frame(diods_frame, width=int(800 / 8), heigh="50")
         fr.pack_propagate(0)
         fr.pack(side=tk.LEFT)
         lb = tk.Label(fr, text=" LED{} ".format(i), bg="#800E3B", padx=5, pady=10, font=("Courier", 10))

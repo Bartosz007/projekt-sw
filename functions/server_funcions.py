@@ -8,3 +8,11 @@ def com0():
     return "{}${}@".format(0, col[randint(0, 7)])
 
 
+def com4(button_number):
+    descriptions = ['opis przycisk zerowy', 'opis przycisk pierwszy', 'opis przycisk drugi', 'opis przycisk trzeci',
+                    'opis przycisk czwarty','opis przycisk piąty', 'opis przycisk szósty', 'opis przycisk siódmy',
+                    'opis przycisk ósmy']
+    return "{}${}@".format(4, descriptions[int(button_number)])
+
+
+

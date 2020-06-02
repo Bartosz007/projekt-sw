@@ -71,5 +71,5 @@ def receive(connection):
 # wysłanie wiadomości
 def send(connection, msg):
     msg = f"{len(msg):<{HEADER_LENGTH}}" + msg
-    #  print(msg)
+    print(msg)
     connection.send(bytes(msg, "utf-8"))

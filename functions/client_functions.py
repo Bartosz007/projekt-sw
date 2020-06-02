@@ -10,3 +10,12 @@ def test_connection(connection, test_label):
     print("Wiadomość od serwera: ")
     print(rec)  # wyświetlenie komunikatu
     test_label.config(bg=rec[2:len(rec) - 1])  # przykładowa obsługa GUI - zmiana kolorów test_label
+
+
+
+def com4(connection, lcd_label, button):
+    send(connection, "{}${}@".format(4, button))
+    rec = receive(connection)
+    description = rec[2:len(rec)-1]
+    lcd_label.config(text=description)
+
