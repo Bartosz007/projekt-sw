@@ -24,3 +24,9 @@ Aby wszystko działało jak należy:
 2. Przypisać tą funkcję do okreslonego elementu GUI w pliku evb_gui.py (najlepiej pod koniec pliku)
 3. Doidać reakcję na odpowiedni typ komunikatu - plik serwer.py -funkcja communicates
 4. Napisać funkcję reagującą na ten komunikat(obliczenia i takie tam) w pliku server_funcions.py
+
+Autorzy:
+*Bartosz Krawczyk
+*Robert Kozik
+*Mateusz Krasiński
+*Krzysztof Kurzak
