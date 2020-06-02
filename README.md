@@ -26,7 +26,7 @@ Aby wszystko działało jak należy:
 4. Napisać funkcję reagującą na ten komunikat(obliczenia i takie tam) w pliku server_funcions.py
 
 Autorzy:
-*Bartosz Krawczyk
-*Robert Kozik
-*Mateusz Krasiński
-*Krzysztof Kurzak
+* Bartosz Krawczyk
+* Robert Kozik
+* Mateusz Krasiński
+* Krzysztof Kurzak
