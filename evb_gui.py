@@ -3,7 +3,7 @@ import time
 import functions.client_functions as cf
 
 time_on_press = 0
-hold_time = 0.5
+hold_time = 1
 
 
 def on_press(i):
@@ -17,7 +17,8 @@ def on_release(server_connection, lcd_label, i):
         # print("button {} was held more than 5 seconds and needs description of function".format(i))
         cf.com4(server_connection, lcd_label, i)
     else:
-        print("button {} was released and needs function".format(i))
+        cf.com6(server_connection, i)
+       # print("button {} was released and needs function".format(i))
 
 
 def load_gui(server_connection):

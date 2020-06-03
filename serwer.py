@@ -35,6 +35,7 @@ def communicates(comm):  # funkcja obsługująca treści komunikatów
     elif numer == 5:
         pass
     elif numer == 6:
+        return sf.com6(comm[2])
         pass
 
 

@@ -65,11 +65,14 @@ def receive(connection):
         full_msg = full_msg + msg.decode("utf-8")
 
         if len(full_msg) - HEADER_LENGTH == msglen:
+            print("Otrzymano odpowiedź o treści: ")
+            print(full_msg)
             return full_msg[HEADER_LENGTH:]  # zwraca tylko treść komunikatu
 
 
 # wysłanie wiadomości
 def send(connection, msg):
+    print("Wysłano komunikat o treści: ")
     msg = f"{len(msg):<{HEADER_LENGTH}}" + msg
     print(msg)
     connection.send(bytes(msg, "utf-8"))
