@@ -1,9 +1,19 @@
+import asyncio
+import threading
 import tkinter as tk
 import time
 import functions.client_functions as cf
 
 time_on_press = 0
-hold_time = 1
+hold_time = 0.5
+
+connection = None
+test_label = None
+lcd_label = None
+adc_scale = None
+rgb_label = None
+buttons = None
+leds = None
 
 
 def on_press(i):
@@ -11,17 +21,45 @@ def on_press(i):
     time_on_press = time.time()
 
 
-def on_release(server_connection, lcd_label, i):
+def on_release(i):
     global time_on_press
     if time.time() - time_on_press > hold_time:
         # print("button {} was held more than 5 seconds and needs description of function".format(i))
-        cf.com4(server_connection, lcd_label, i)
+        cf.com4(connection, lcd_label, i)
     else:
-        cf.com6(server_connection, i)
-       # print("button {} was released and needs function".format(i))
+        cf.com6(connection, i)
+    # print("button {} was released and needs function".format(i))
+
+
+def test():
+    cf.test_connection(connection, test_label)
+
+
+async def loop():
+    while True:
+        await asyncio.sleep(1)
+        test()
+
+
+def thread(async_loop):
+    async_loop.run_until_complete(loop())
+
+
+def start_loop(async_loop):
+    threading.Thread(target=thread, args=(async_loop,)).start()
 
 
 def load_gui(server_connection):
+    global connection
+    global test_label
+    global lcd_label
+    global adc_scale
+    global rgb_label
+    global buttons
+    global leds
+
+    connection = server_connection
+
     window = tk.Tk()
     window.title("EvB5.1")
     width, heigh = 800, 800
@@ -72,6 +110,7 @@ def load_gui(server_connection):
     buttons_opis_label = tk.Label(buttons_frame, text="przyciski(8x)", font=("Courier", 10))
     buttons_opis_label.pack()
 
+    buttons = []
     for i in range(8):
         fr = tk.Frame(buttons_frame, width=int(800 / 8), heigh="50")
         fr.pack_propagate(0)
@@ -79,8 +118,10 @@ def load_gui(server_connection):
 
         bt = tk.Button(fr, text="Button" + str(i), width=10, heigh=10)
         bt.bind("<ButtonPress>", lambda event, i=i: on_press(i))
-        bt.bind("<ButtonRelease>", lambda event, i=i: on_release(server_connection, lcd_label, i))
+        bt.bind("<ButtonRelease>", lambda event, i=i: on_release(i))
         bt.pack()
+
+        buttons.append(bt)
 
     # diody L0-L7
     diods_frame = tk.Frame(main_frame, width=width, heigh=heigh / 6)
@@ -90,12 +131,15 @@ def load_gui(server_connection):
     diods_opis_label = tk.Label(diods_frame, text="diody led(8x)", font=("Courier", 10))
     diods_opis_label.pack()
 
+    leds = []
     for i in range(8):
         fr = tk.Frame(diods_frame, width=int(800 / 8), heigh="50")
         fr.pack_propagate(0)
         fr.pack(side=tk.LEFT)
         lb = tk.Label(fr, text=" LED{} ".format(i), bg="#800E3B", padx=5, pady=10, font=("Courier", 10))
         lb.pack()
+
+        leds.append(lb)
 
     #  przycisk do testowania połączenia
     test_frame = tk.Frame(main_frame, width=width, heigh=heigh / 6)
@@ -112,6 +156,8 @@ def load_gui(server_connection):
     # dodawjacie obsługę przycisków/ suwaków poniżej( ale przed window.mainloop())
     # najlepiej też przesłać przez parametr elementy GUI na których potem będzie się operować
     # poniżej jest przykładowe połączenie klient->serwer->klient
+    async_loop = asyncio.get_event_loop()
+    start_loop(async_loop)
 
     test_button.config(command=lambda: cf.test_connection(server_connection, test_label))
 
