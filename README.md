@@ -1,5 +1,5 @@
 # EVB 5.1
-## Dodano funckje asynchroniczne(więcej w uwagach)
+### Dodano funckje asynchroniczne(więcej w uwagach)!
 
 ##### Projekt jest realizowany w oparciu o komunikację klient-serwer.
    - Używane do tego są sockety.
@@ -24,9 +24,9 @@ Pliki:
 * serwer_functions.py - zawiera funkcje realizowane po stronie klienta
 
 
-> Nie zmieniajcie pliku socket_io.py
-> Dbajcie o porządek
-> Zanim zaczniecie pracę, przecyztajcie kod i komentarze
+>  Nie zmieniajcie pliku socket_io.py
+>  Dbajcie o porządek
+>  Zanim zaczniecie pracę, przecyztajcie kod i komentarze
 
 Aby wszystko działało jak należy:
 1. Utworzyć funkcje obsługującą okreslone zdarzenie w GUI w pliku client_functions.py
