@@ -4,7 +4,11 @@
    - Używane do tego są sockety.
    - Klient pełni rolę płytki EVB5.1
    - Serwer pełni rolę hosta.
-  
+   - Aplikacja domyślnie ma działać na Linuksie
+   
+### UWAGA 
+   - Do poprawnego działania punktu 4a na linuksie, wymagane jest odkomentowanie linii 23 z pliku functions/server_functions.py
+
 Napisana jest prosta biblioteka socket_io.py do prostszej obsługi połączeń.
 Pliki:
 * klient.py - klient
@@ -26,7 +30,9 @@ Aby wszystko działało jak należy:
 4. Napisać funkcję reagującą na ten komunikat(obliczenia i takie tam) w pliku server_funcions.py
 
 Autorzy:
-* Bartosz Krawczyk
 * Robert Kozik
 * Mateusz Krasiński
 * Krzysztof Kurzak
+* Aleksandra Leja
+* Bartosz Krawczyk
+
