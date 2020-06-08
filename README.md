@@ -49,8 +49,8 @@ Autorzy zadań:
 * Michał Kwieciński
 
 Zagadnienia merytoryczne i projektowe:
-* Sebastian O.
-* Alek K.
+* Sebastian Obora
+* Alek Kowalczyk
 
 Autor "symulatora" płytki:
 * Bartosz Krawczyk
