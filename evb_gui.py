@@ -1,13 +1,22 @@
 import asyncio
+import nest_asyncio
 import threading
 import tkinter as tk
 import time
 import functions.client_functions as cf
 
+
+root = tk.Tk()
+nest_asyncio.apply()
+lcd_text = tk.StringVar(value="88888888\n88888888")
+
+
 time_on_press = 0
 hold_time = 0.5
+active_sys = True
 
 connection = None
+connection2 = None
 test_label = None
 lcd_label = None
 adc_scale = None
@@ -23,44 +32,89 @@ def on_press(i):
 
 def on_release(i):
     global time_on_press
+    global active_sys
+
     if time.time() - time_on_press > hold_time:
-        # print("button {} was held more than 5 seconds and needs description of function".format(i))
-        cf.com4(connection, lcd_label, i)
+        active_sys = False
+
+        try:
+            description = cf.com4(connection, i)
+            lcd_text.set(description)
+            active_sys = True
+        except Exception:
+            pass
+
     else:
-        cf.com6(connection, i)
-    # print("button {} was released and needs function".format(i))
+        try:
+            cf.com4(connection, i)
+            cf.com6(connection, i)
+        except Exception:
+            pass
 
 
-def test():
-    cf.test_connection(connection, test_label)
+def suwak_val(val):  # otrzymuje wartosc z potencjonometru
+
+    try:
+        cf.com5(connection, val)
+        cf.com1(connection, leds)
+    except Exception:
+        pass
 
 
 async def loop():
     while True:
-        await asyncio.sleep(1)
-        test()
+        try:
+            cpu, memory, temperature = cf.com2(connection)
+
+            lcd_text.set(f"procesor:\n{cpu}%")
+            await asyncio.sleep(2)
+            lcd_text.set(f"pamiec:\n{memory}%")
+            await asyncio.sleep(2)
+            lcd_text.set(f"temp:\n{temperature}°C")
+            await asyncio.sleep(3)
+        except Exception:
+            pass
+
+
+async def loop2():
+    global LOCK
+    while True:
+        try:
+            cf.com3(connection, rgb_label)
+            await asyncio.sleep(0.1)
+        except Exception:
+            pass
 
 
 def thread(async_loop):
     async_loop.run_until_complete(loop())
 
 
+def thread2(async_loop):
+    async_loop.run_until_complete(loop2())
+
+
 def start_loop(async_loop):
     threading.Thread(target=thread, args=(async_loop,)).start()
 
 
-def load_gui(server_connection):
+def start_loop2(async_loop):
+    threading.Thread(target=thread2, args=(async_loop,)).start()
+
+
+def load_gui(server_connection, window):
     global connection
+    global connection2
     global test_label
     global lcd_label
     global adc_scale
     global rgb_label
     global buttons
     global leds
+    global lcd_text
 
     connection = server_connection
 
-    window = tk.Tk()
     window.title("EvB5.1")
     width, heigh = 800, 800
     window.geometry("{}x{}+{}+{}".format(width, heigh, 100, 100))
@@ -75,9 +129,10 @@ def load_gui(server_connection):
     lcd_frame.pack_propagate(0)
     lcd_frame.pack()
 
-    lcd_opis_label = tk.Label(lcd_frame, text="wyświetlacz LCD", font=("Courier", 10))
+    lcd_text = tk.StringVar(value="8888888888888888\n8888888888888888")
+    lcd_opis_label = tk.Label(lcd_frame, textvar="wyświetlacz LCD", font=("Courier", 10))
     lcd_opis_label.pack()
-    lcd_label = tk.Label(lcd_frame, text="8888888888888888\n8888888888888888", font=("Courier", 20), bg="RED")
+    lcd_label = tk.Label(lcd_frame, textvar=lcd_text, font=("Courier", 20), bg="RED")
     lcd_label.pack()
 
     # ADC
@@ -88,7 +143,7 @@ def load_gui(server_connection):
     adc_opis_label = tk.Label(adc_frame, text="kontrolka stanu adc", font=("Courier", 10))
     adc_opis_label.pack()
 
-    adc_scale = tk.Scale(adc_frame, from_=0, to=100, orient=tk.HORIZONTAL)
+    adc_scale = tk.Scale(adc_frame, from_=0, to=100, orient=tk.HORIZONTAL, command=suwak_val)
     adc_scale.pack()
 
     # dioda RGB
@@ -156,8 +211,11 @@ def load_gui(server_connection):
     # dodawjacie obsługę przycisków/ suwaków poniżej( ale przed window.mainloop())
     # najlepiej też przesłać przez parametr elementy GUI na których potem będzie się operować
     # poniżej jest przykładowe połączenie klient->serwer->klient
+
     async_loop = asyncio.get_event_loop()
+    async_loop2 = asyncio.get_event_loop()
     start_loop(async_loop)
+    start_loop2(async_loop2)
 
     test_button.config(command=lambda: cf.test_connection(server_connection, test_label))
 

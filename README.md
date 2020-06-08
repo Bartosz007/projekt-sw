@@ -29,10 +29,33 @@ Aby wszystko działało jak należy:
 3. Doidać reakcję na odpowiedni typ komunikatu - plik serwer.py -funkcja communicates
 4. Napisać funkcję reagującą na ten komunikat(obliczenia i takie tam) w pliku server_funcions.py
 
-Autorzy:
+Autorzy zadań:
 * Robert Kozik
 * Mateusz Krasiński
 * Krzysztof Kurzak
 * Aleksandra Leja
 * Bartosz Krawczyk
+* Jeremiasz Macura
+* Filip K.
+* Aliaksandr Kuzmich
+* Maciej Spólnik
+* Jakub Łagosz
+* Kamil Kubala
+* Michał Kwieciński
+
+Zagadnienia merytoryczne i projektowe:
+* Sebastian O.
+* Alek K.
+
+Autor "symulatora" płytki:
+* Bartosz Krawczyk
+
+Łączenie wszystkiego w całość i łatanie:
+* Krzysztof Kurzak
+* Bartosz Krawczyk
+
+Autor nagrania:
+* Krzysztof Kurzak
+
+
 
