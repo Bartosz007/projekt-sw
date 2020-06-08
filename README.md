@@ -1,4 +1,5 @@
 # EVB 5.1
+### Dodano funckje asynchroniczne(więcej w uwagach)!
 
 ##### Projekt jest realizowany w oparciu o komunikację klient-serwer.
    - Używane do tego są sockety.
@@ -8,7 +9,11 @@
    
 ### UWAGA 
    - Do poprawnego działania punktu 4a na linuksie, wymagane jest odkomentowanie linii 23 z pliku functions/server_functions.py
-
+   - Funnkcja asynchroniczna starsznie spami komunikatami, gdy nie są używane, to moża zakomentować linie 160 z pliku evb_gui.py
+                                                                                                      start_loop(async_loop)
+   - Bloki są teraz na zmiennych globalnych, żeby nie było problemów z zasięgiem zmiennych i asynchronicznością
+   - Wszystkie elementy wykonywane cyklicznie => funkcja 'async def loop()'
+   
 Napisana jest prosta biblioteka socket_io.py do prostszej obsługi połączeń.
 Pliki:
 * klient.py - klient
@@ -19,9 +24,9 @@ Pliki:
 * serwer_functions.py - zawiera funkcje realizowane po stronie klienta
 
 
-> Nie zmieniajcie pliku socket_io.py
-> Dbajcie o porządek
-> Zanim zaczniecie pracę, przecyztajcie kod i komentarze
+>  Nie zmieniajcie pliku socket_io.py
+>  Dbajcie o porządek
+>  Zanim zaczniecie pracę, przecyztajcie kod i komentarze
 
 Aby wszystko działało jak należy:
 1. Utworzyć funkcje obsługującą okreslone zdarzenie w GUI w pliku client_functions.py
