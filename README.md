@@ -43,6 +43,7 @@ Autorzy zadań:
 * Jeremiasz Macura
 * Filip K.
 * Aliaksandr Kuzmich
+* Konrad Makselan
 * Maciej Spólnik
 * Jakub Łagosz
 * Kamil Kubala
